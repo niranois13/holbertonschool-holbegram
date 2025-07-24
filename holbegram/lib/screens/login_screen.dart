@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,6 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+
+            // Holbegram Headline:
             const SizedBox(height: 28),
             const Text(
               'Holbegram',
@@ -47,15 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 fontFamily: 'Billabong',
               ),
             ),
+            
+            // Holberton Logo:
             Image.asset(
               'assets/images/logo.webp',
               height: 60,
               width: 80,
             ),
+
+            // Log In Form:
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
+
+                  // Email Controller:
                   const SizedBox(height: 28),
                   TextFieldInput(
                     controller: widget.emailController,
@@ -63,6 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Email',
                     keyboardType: TextInputType.emailAddress,
                   ),
+
+                  // Password Controller:
                   const SizedBox(height: 24),
                   TextFieldInput(
                     controller: widget.passwordController,
@@ -83,6 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                     ),
                   ),
+
+                  // Log In Button:
                   const SizedBox(height: 28),
                   SizedBox(
                     height: 48,
@@ -100,6 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+
+                  // Login Trouble Helper:
                   const SizedBox(height: 24),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -117,14 +132,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
                   const Divider(thickness: 2),
+
+                  // Sign Up Options:
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 12),
+                    
+                    // Email/Password Sign Up Redirect
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text("Don't have an account?"),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUp(
+                                  emailController: widget.emailController,
+                                  passwordController: widget.passwordController,
+                                )
+                                ),
+                            );
+                          },
                           child: const Text(
                             'Sign up',
                             style: TextStyle(
@@ -151,6 +180,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
+
+                  // Google Sign Up Option:
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

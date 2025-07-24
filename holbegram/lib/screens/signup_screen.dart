@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/login_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
   final TextEditingController emailController;
-  final TextEditingController usernameController;
   final TextEditingController passwordController;
-  final TextEditingController passwordConfirmController;
 
   const SignUp({
     super.key,
     required this.emailController,
-    required this.usernameController,
     required this.passwordController,
-    required this.passwordConfirmController,
   });
 
   @override
@@ -20,6 +17,8 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
   bool _passwordVisible = true;
 
   @override
@@ -30,8 +29,8 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void dispose() {
-    widget.emailController.dispose();
-    widget.passwordController.dispose();
+    usernameController.dispose();
+    passwordConfirmController.dispose();
     super.dispose();
   }
 
@@ -88,7 +87,7 @@ class _SignUpState extends State<SignUp> {
                   // Username Controller:
                   const SizedBox(height: 28),
                   TextFieldInput(
-                    controller: widget.usernameController,
+                    controller: usernameController,
                     isPassword: false,
                     hintText: 'Full Name',
                     keyboardType: TextInputType.name,
@@ -117,7 +116,7 @@ class _SignUpState extends State<SignUp> {
 
                   // Confirm Password Controller:
                   TextFieldInput(
-                    controller: widget.passwordConfirmController,
+                    controller: passwordConfirmController,
                     isPassword: !_passwordVisible,
                     hintText: 'Confirm Password',
                     keyboardType: TextInputType.visiblePassword,
@@ -166,7 +165,14 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         const Text("Have an account?"),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(emailController: widget.emailController, passwordController: widget.passwordController,)
+                                ),
+                            );
+                          },
                           child: const Text(
                             'Log in',
                             style: TextStyle(
