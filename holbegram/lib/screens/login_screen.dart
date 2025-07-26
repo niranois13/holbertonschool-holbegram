@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/main.dart';
 import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
+import '../methods/auth_methods.dart';
 
 class LoginScreen extends StatefulWidget {
   final TextEditingController emailController;
@@ -106,7 +108,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        String result = await AuthMethods().login(
+                          email: widget.emailController.text, 
+                          password: widget.passwordController.text
+                          );
+                        if (!context.mounted) {
+                          return;
+                        }
+                        if (result == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Login')
+                              ),
+                            );
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const Home(),
+                              ),
+                          );
+                        } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(result))
+                            );
+                        }
+                      },
                       child: const Text(
                         'Log In',
                         style: TextStyle(color: Colors.white),
@@ -151,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   emailController: widget.emailController,
                                   passwordController: widget.passwordController,
                                 )
-                                ),
+                              ),
                             );
                           },
                           child: const Text(
