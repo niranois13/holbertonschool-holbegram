@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/screens/login_screen.dart';
+import 'package:holbegram/screens/upload_image_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 class SignUp extends StatefulWidget {
@@ -146,7 +147,17 @@ class _SignUpState extends State<SignUp> {
                           const Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => AddPicture(
+                              email: widget.emailController.text, 
+                              username: usernameController.text,
+                              password: widget.passwordController.text
+                              ),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(color: Colors.white),

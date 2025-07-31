@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () async {
-                        String result = await AuthMethods().login(
+                        String result = await AuthMethode().login(
                           email: widget.emailController.text, 
                           password: widget.passwordController.text
                           );

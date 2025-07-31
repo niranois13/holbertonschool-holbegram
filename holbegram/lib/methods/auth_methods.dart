@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:holbegram/models/user.dart';
-import 'package:http/http.dart';
 import 'dart:typed_data';
 
-class AuthMethods {
+class AuthMethode {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
@@ -19,7 +18,9 @@ class AuthMethods {
         password: password,
       );
       User? user = userCredentials.user;
-
+      if (user == null) {
+        return ('error');
+      }
       return ('success');
     } catch (error) {
       return error.toString();
@@ -62,4 +63,30 @@ class AuthMethods {
         return (error.toString());
       }
   }
+
+  Future<Users?> getUserDetails() async {
+    try {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        final snapshot = await FirebaseFirestore.instance.collection('users').doc(currentUser.uid).get();
+        final user = Users.fromSnap(snapshot);
+        return user;
+      }
+    } catch (error) {
+      print(error.toString());
+    }
+    
+    return null;
+  }
+
+  Future<String> logOut() async {
+    try {
+        await _auth.signOut();
+        return('success');
+    } catch (error) {
+        return(error.toString());
+    }
+  }
+
+  
 }
